@@ -1,0 +1,79 @@
+[
+	{
+		"id" : 1,
+		"key_sikd_layanan" : "11",
+		"key_lkpp_program" : null,
+		"nama_layanan" : "URUSAN WAJIB YANG BERKAITAN DENGAN PELAYANAN DASAR",
+		"slug" : "urusan-wajib-yang-berkaitan-dengan-pelayanan-dasar",
+		"description" : null,
+		"is_active" : 1,
+		"created_at" : "2025-06-02 02:03:27",
+		"updated_at" : "2025-06-02 02:03:27"
+	},
+	{
+		"id" : 2,
+		"key_sikd_layanan" : "12",
+		"key_lkpp_program" : null,
+		"nama_layanan" : "URUSAN WAJIB TIDAK YANG BERKAITAN DENGAN PELAYANAN DASAR",
+		"slug" : "urusan-wajib-tidak-yang-berkaitan-dengan-pelayanan-dasar",
+		"description" : null,
+		"is_active" : 1,
+		"created_at" : "2025-06-02 02:03:27",
+		"updated_at" : "2025-06-02 02:03:27"
+	},
+	{
+		"id" : 3,
+		"key_sikd_layanan" : "13",
+		"key_lkpp_program" : null,
+		"nama_layanan" : "URUSAN PILIHAN",
+		"slug" : "urusan-pilihan",
+		"description" : null,
+		"is_active" : 1,
+		"created_at" : "2025-06-02 02:03:28",
+		"updated_at" : "2025-06-02 02:03:28"
+	},
+	{
+		"id" : 4,
+		"key_sikd_layanan" : "14",
+		"key_lkpp_program" : null,
+		"nama_layanan" : "UNSUR PENDUKUNG URUSAN PEMERINTAHAN",
+		"slug" : "unsur-pendukung-urusan-pemerintahan",
+		"description" : null,
+		"is_active" : 1,
+		"created_at" : "2025-06-02 02:03:28",
+		"updated_at" : "2025-06-02 02:03:28"
+	},
+	{
+		"id" : 5,
+		"key_sikd_layanan" : "15",
+		"key_lkpp_program" : null,
+		"nama_layanan" : "UNSUR PENUNJANG URUSAN PEMERINTAHAN",
+		"slug" : "unsur-penunjang-urusan-pemerintahan",
+		"description" : null,
+		"is_active" : 1,
+		"created_at" : "2025-06-02 02:03:28",
+		"updated_at" : "2025-06-02 02:03:28"
+	},
+	{
+		"id" : 6,
+		"key_sikd_layanan" : "16",
+		"key_lkpp_program" : null,
+		"nama_layanan" : "UNSUR PENGAWASAN URUSAN PEMERINTAHAN",
+		"slug" : "unsur-pengawasan-urusan-pemerintahan",
+		"description" : null,
+		"is_active" : 1,
+		"created_at" : "2025-06-02 02:03:28",
+		"updated_at" : "2025-06-02 02:03:28"
+	},
+	{
+		"id" : 7,
+		"key_sikd_layanan" : "17",
+		"key_lkpp_program" : null,
+		"nama_layanan" : "URUSAN PEMERINTAHAN UMUM",
+		"slug" : "urusan-pemerintahan-umum",
+		"description" : null,
+		"is_active" : 1,
+		"created_at" : "2025-06-02 02:03:28",
+		"updated_at" : "2025-06-02 02:03:28"
+	}
+]

@@ -1,0 +1,92 @@
+[
+	{
+		"id" : 1,
+		"code" : "1.1",
+		"misi_id" : 1,
+		"description" : "Terwujudnya tata kelola pemerintahan yang berintegritas profesional, responsif,  kolaboratif, dan partisipatif",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:05",
+		"updated_at" : "2025-06-20 10:14:05"
+	},
+	{
+		"id" : 2,
+		"code" : "2.1",
+		"misi_id" : 2,
+		"description" : "Mewujudkan Peningkatan Implementasi Kota Pintar dan Kota Sehat",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:05",
+		"updated_at" : "2025-06-20 10:14:05"
+	},
+	{
+		"id" : 3,
+		"code" : "3.1",
+		"misi_id" : 3,
+		"description" : "Meningkatkan Kualitas Sumber Daya Manusia Yang Unggul",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:05",
+		"updated_at" : "2025-06-20 10:14:05"
+	},
+	{
+		"id" : 4,
+		"code" : "3.2",
+		"misi_id" : 3,
+		"description" : "Meningkatkan stabilitas sosial dan politik daerah",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:05",
+		"updated_at" : "2025-06-20 10:14:05"
+	},
+	{
+		"id" : 5,
+		"code" : "4.1",
+		"misi_id" : 4,
+		"description" : "Mewujudkan Perekonomian Masyarakat yang adaptif dan kondusif",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:06",
+		"updated_at" : "2025-06-20 10:14:06"
+	},
+	{
+		"id" : 6,
+		"code" : "5.1",
+		"misi_id" : 5,
+		"description" : "Mewujudkan Kota Layak Huni",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:06",
+		"updated_at" : "2025-06-20 10:14:06"
+	},
+	{
+		"id" : 7,
+		"code" : "6.1",
+		"misi_id" : 6,
+		"description" : "Resiliensi  terhadap bencana dan perubahan iklim",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:06",
+		"updated_at" : "2025-06-20 10:14:06"
+	},
+	{
+		"id" : 8,
+		"code" : "7.1",
+		"misi_id" : 7,
+		"description" : "Mewujudkan Sektor perdagangan dan jasa yang tangguh",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:06",
+		"updated_at" : "2025-06-20 10:14:06"
+	},
+	{
+		"id" : 9,
+		"code" : "8.1",
+		"misi_id" : 8,
+		"description" : "Terwujudnya peningkatan perekonomian daerah dari sektor Industri Kreatif dan Pariwisata",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:14:06",
+		"updated_at" : "2025-06-20 10:14:06"
+	}
+]

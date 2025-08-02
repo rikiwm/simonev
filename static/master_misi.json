@@ -1,0 +1,74 @@
+[
+	{
+		"id" : 1,
+		"code" : "1",
+		"name" : "Menguatkan Tata Kelola Pemerintahan Yang Berintegritas, Responsif, Inovatif dan Partisipatif",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:02:18",
+		"updated_at" : "2025-06-20 10:02:18"
+	},
+	{
+		"id" : 2,
+		"code" : "2",
+		"name" : "Menguatkan Pencapaian Indikator Kota Pintar dan Kota Sehat",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:02:18",
+		"updated_at" : "2025-06-20 10:02:18"
+	},
+	{
+		"id" : 3,
+		"code" : "3",
+		"name" : "Menguatkan Masyarakat Yang Beragama dan Berbudaya Melalui Pendidikan Karakter dan Pemberdayaan",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:02:18",
+		"updated_at" : "2025-06-20 10:02:18"
+	},
+	{
+		"id" : 4,
+		"code" : "4",
+		"name" : "Mendorong Kemudahan Berinvestasi Demi Terbukanya Lapangan Pekerjaan",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:02:18",
+		"updated_at" : "2025-06-20 10:02:18"
+	},
+	{
+		"id" : 5,
+		"code" : "5",
+		"name" : "Mewujudkan Pembangunan dan Merevitalisasi Sarana dan Prasarana Umum Yang Hijau dan Berkualitas",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:02:18",
+		"updated_at" : "2025-06-20 10:02:18"
+	},
+	{
+		"id" : 6,
+		"code" : "6",
+		"name" : "Menguatkan Jaringan Ketahanan Bencana",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:02:19",
+		"updated_at" : "2025-06-20 10:02:19"
+	},
+	{
+		"id" : 7,
+		"code" : "7",
+		"name" : "Mengembangkan Perekonomian Masyarakat Yang Adaptif dan Kondusif Melalui Penguatan Sektor Perdagangan dan Jasa",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:02:19",
+		"updated_at" : "2025-06-20 10:02:19"
+	},
+	{
+		"id" : 8,
+		"code" : "8",
+		"name" : "Menggerakkan Potensi Kota Untuk Terwujudnya Industri Kreatif dan Pariwista Berkelanjutan",
+		"active" : 1,
+		"tahun" : 2025,
+		"created_at" : "2025-06-20 10:02:19",
+		"updated_at" : "2025-06-20 10:02:19"
+	}
+]

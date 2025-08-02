@@ -1,0 +1,110 @@
+[
+	{
+		"id" : 1,
+		"name" : "Padang Amanah",
+		"description" : null,
+		"slug" : "padang-amanah",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:54",
+		"updated_at" : "2025-05-26 06:24:54"
+	},
+	{
+		"id" : 2,
+		"name" : "Padang Juara",
+		"description" : null,
+		"slug" : "padang-juara",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:54",
+		"updated_at" : "2025-05-26 06:24:54"
+	},
+	{
+		"id" : 3,
+		"name" : "Smart Surau",
+		"description" : null,
+		"slug" : "smart-surau",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:54",
+		"updated_at" : "2025-05-26 06:24:54"
+	},
+	{
+		"id" : 4,
+		"name" : "Sinergi Nagari",
+		"description" : null,
+		"slug" : "sinergi-nagari",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:55",
+		"updated_at" : "2025-05-26 06:24:55"
+	},
+	{
+		"id" : 5,
+		"name" : "Padang Melayani",
+		"description" : null,
+		"slug" : "padang-melayani",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:55",
+		"updated_at" : "2025-05-26 06:24:55"
+	},
+	{
+		"id" : 6,
+		"name" : "Padang Rancak",
+		"description" : null,
+		"slug" : "padang-rancak",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:55",
+		"updated_at" : "2025-05-26 06:24:55"
+	},
+	{
+		"id" : 7,
+		"name" : "Padang Sigap",
+		"description" : null,
+		"slug" : "padang-sigap",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:56",
+		"updated_at" : "2025-05-26 06:24:56"
+	},
+	{
+		"id" : 8,
+		"name" : "UMKM Naik Kelas",
+		"description" : null,
+		"slug" : "umkm-naik-kelas",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:56",
+		"updated_at" : "2025-05-26 06:24:56"
+	},
+	{
+		"id" : 9,
+		"name" : "Jelajah Padang",
+		"description" : null,
+		"slug" : "jelajah-padang",
+		"value" : null,
+		"visible" : 1,
+		"tahun" : 2025,
+		"deleted_at" : null,
+		"created_at" : "2025-05-26 06:24:56",
+		"updated_at" : "2025-05-26 06:24:56"
+	}
+]
