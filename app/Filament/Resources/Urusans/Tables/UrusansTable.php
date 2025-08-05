@@ -17,13 +17,13 @@ class UrusansTable
         return $table
             ->columns([
                 TextColumn::make('kode_urusan')
-                    ->searchable(),
+                    ->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('name_urusan')
                     ->searchable(),
                 TextColumn::make('slug')
-                    ->searchable(),
+                    ->searchable()->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('is_active')
-                    ->boolean(),
+                    ->boolean()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

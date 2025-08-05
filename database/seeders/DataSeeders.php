@@ -150,16 +150,65 @@ class DataSeeders extends Seeder
             //     ]);
             // }
 
+            // $indikatorsubkegiatan = json_decode(file_get_contents(base_path('static/master_indikator_program.json')), true);
+            // $indikatorsubkegiatan = json_decode(file_get_contents(base_path('static/nomenklatur_kinerja_indikators.json')), true);
             // $p = json_decode(file_get_contents(base_path('static/program_master.json')), true);
             // $k = json_decode(file_get_contents(base_path('static/kegiatan_master.json')), true);
             // $sk = json_decode(file_get_contents(base_path('static/subkegiatan_master.json')), true);
-            $apbd = json_decode(file_get_contents(base_path('static/sipkd.json')), true);
-            // foreach ($p as $key => $value) {
+            // $apbd = json_decode(file_get_contents(base_path('static/sipkd.json')), true);
+            // foreach ($indikatorsubkegiatan as $key => $value) {
+            //                 \App\Models\IndikatorProgram::create([
+            //                     'parent_id' => $value['parent_id'],
+            //                     'bidang' => $value['bidang'],
+            //                     'kd_bidang' => Str::limit($value['kd_program_str'], 4, ''),
+            //                     'nama_program' => $value['nama_program'],
+            //                     'kd_program' => $value['kd_program'],
+            //                     'kd_program_str' => $value['kd_program_str'],
+            //                     'satuan' => $value['indikator_satuan'],
+            //                     'indikator' => $value['indikator_outcome'],
+            //                     'definisi' => $value['indikator_definisi'],
+            //                     'indikator_outcome_canges' => $value['indikator_outcome_canges'],
+            //                     'indikator_outcome_before' => $value['indikator_outcome_before'],
+            //                     'kd_satker' => $value['kd_satker'],
+            //                     'satker' => $value['satker'],
+            //                     'tags' => $value['tags'],
+            //                     'sumber_data' => $value['sumber_data'],
+            //                     'is_active' => $value['is_active'],
+            //                     'is_canges' => $value['is_canges'],
+
+
+            //                 ]);
+            //             }
+            // foreach ($indikatorsubkegiatan as $key => $value) {
+            //     \App\Models\IndikatorSubKegiatan::create([
+            //         'kd_bidang' => Str::limit($value['kd_program'], 4, ''),
+            //         'kd_program' => $value['kd_program'],
+            //         'kd_kegiatan' => $value['kd_kegiatan'],
+            //         'kd_subkegiatan' => $value['kd_subkegiatan'],
+            //         'kinerja' => $value['kinerja'],
+            //         'indikator' => $value['indikator'],
+            //         'satuan' => $value['satuan'],
+            //         'tag' => $value['tag'],
+            //         'definisi_operasional' => $value['definisi_operasional'],
+            //         'satker_id' => $value['satker_id'],
+            //         'pelaksana' => $value['pelaksana'],
+            //         'spm' => $value['spm'],
+            //         'jenis' => $value['jenis'],
+            //         'subkeg_before' => Str::limit($value['subkeg_before'], 17, ''),
+            //         'ket_subkeg_before' =>  Str::substr($value['subkeg_before'], 17, 255),
+            //         'is_active' => $value['is_active'],
+            //         'is_deleted' => 0,
+
+            //     ]);
+            // }
+
+            // // foreach ($p as $key => $value) {
             //     \App\Models\Program::create([
             //         'tahun_anggaran' => $value['tahun_anggaran'],
             //         'kd_klpd' => $value['kd_klpd'],
             //         'kd_satker' => $value['kd_satker'],
             //         'kd_program' => $value['kd_program'],
+            //         'kd_bidang_str' => Str::limit($value['kd_program_str'], 4,''),
             //         'kd_program_str' => $value['kd_program_str'],
             //         'nama_program' => $value['nama_program'],
             //         'pagu_program' => $value['pagu_program'],
@@ -202,26 +251,26 @@ class DataSeeders extends Seeder
             //         '_event_date' => $value['_event_date'],
             //     ]);
             // }
-              foreach ($apbd as $key => $value) {
-                \App\Models\Apbd::create([
-                    'UNITKEY' => $value['UNITKEY'],
-                    'KDUNIT' => $value['KDUNIT'],
-                    'SKPD' => $value['SKPD'],
-                    'IDURUSAN' => $value['IDURUSAN'],
-                    'IDPRGRM' => $value['IDPRGRM'],
-                    'KDPRGRM' => $value['KDPRGRM'],
-                    'NMPRGRM' => $value['NMPRGRM'],
-                    'IDKEG' => $value['IDKEG'],
-                    'NUKEG' => $value['NUKEG'],
-                    'NMKEG' => $value['NMKEG'],
-                    'IDSUBKEG' => $value['IDSUBKEG'],
-                    'KDSUBKEG' => $value['KDSUBKEG'],
-                    'ANGGARAN' => $value['ANGGARAN'],
-                    'REALISASI' => $value['REALISASI'],
-                    'tahun_anggaran' => now()->year,
-                    'event_date' => now(),
+            //   foreach ($apbd as $key => $value) {
+            //     \App\Models\Apbd::create([
+            //         'UNITKEY' => $value['UNITKEY'],
+            //         'KDUNIT' => $value['KDUNIT'],
+            //         'SKPD' => $value['SKPD'],
+            //         'IDURUSAN' => $value['IDURUSAN'],
+            //         'IDPRGRM' => $value['IDPRGRM'],
+            //         'KDPRGRM' => $value['KDPRGRM'],
+            //         'NMPRGRM' => $value['NMPRGRM'],
+            //         'IDKEG' => $value['IDKEG'],
+            //         'NUKEG' => $value['NUKEG'],
+            //         'NMKEG' => $value['NMKEG'],
+            //         'IDSUBKEG' => $value['IDSUBKEG'],
+            //         'KDSUBKEG' => $value['KDSUBKEG'],
+            //         'ANGGARAN' => $value['ANGGARAN'],
+            //         'REALISASI' => $value['REALISASI'],
+            //         'tahun_anggaran' => now()->year,
+            //         'event_date' => now(),
 
-                ]);
-            }
+            //     ]);
+            // }
     }
 }

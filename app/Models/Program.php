@@ -12,4 +12,9 @@ class Program extends Model
        {
               return $this->belongsTo(Skpd::class, 'kd_satker', 'kd_satker');
        }
+
+        public function bidang()
+       {
+              return $this->belongsTo(Bidang::class, 'kd_bidang_str', 'kode_bidang');
+       }
 }

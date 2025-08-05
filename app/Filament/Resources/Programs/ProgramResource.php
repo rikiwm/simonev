@@ -6,6 +6,7 @@ use App\Filament\Resources\Programs\Pages\CreateProgram;
 use App\Filament\Resources\Programs\Pages\EditProgram;
 use App\Filament\Resources\Programs\Pages\ListPrograms;
 use App\Filament\Resources\Programs\Pages\ViewProgram;
+use App\Filament\Resources\Programs\Pages\ShowProgram;
 use App\Filament\Resources\Programs\Schemas\ProgramForm;
 use App\Filament\Resources\Programs\Schemas\ProgramInfolist;
 use App\Filament\Resources\Programs\Tables\ProgramsTable;
@@ -52,6 +53,7 @@ class ProgramResource extends Resource
             'create' => CreateProgram::route('/create'),
             'view' => ViewProgram::route('/{record}'),
             'edit' => EditProgram::route('/{record}/edit'),
+            'show-program' => Pages\ShowProgram::route('/{record}/show-program'),
         ];
     }
 }
