@@ -17,14 +17,29 @@ use Illuminate\Support\Str;
 use Filament\Support\Enums\FontWeight;
 class ProgramsTable
 {
+//    public $record = null;
+//     public function mount(string $record)
+//     {
+//         $this->record = $record;
+//         dd($record);
+
+//     }
     public static function configure(Table $table): Table
     {
+        // $record = Str::chopStart(url(\request('record')),'http://127.0.0.1:8000/');
+        // $records = Str::of($record)->headline()->upper();
+        // dd($records);
         // $bidang = Bidang::all();
         return $table->query(Program::query()->with(['satker','bidang'])
+        //    ->with(['satker', 'bidang'])
+        // ->whereHas('satker', function ($query) use ($record) {
+        //     $query->where('kd_satker', $record);
+        // })
         ->when(!auth()->user()->hasRole('super_admin'), function ($query) {$namaSatker = auth()->user()->satkers_id;$query->where('kd_satker',$namaSatker );})
+        ->orderBy('kd_bidang_str', 'asc')
         )
-        ->heading('Program')
-        ->description('Manage your Program here.')->extremePaginationLinks()
+        // ->heading('Program')->defaultPaginationPageOption(25)
+        // ->description('Manage your Program here.')->extremePaginationLinks()
         ->groups([
             Group::make('bidang.name_bidang')->getTitleFromRecordUsing(fn ($record): string => $record->bidang?->kode_bidang.' - '.ucfirst($record->bidang->name_bidang))->collapsible()->titlePrefixedWithLabel(false)
         ])->defaultGroup('bidang.name_bidang')
@@ -39,7 +54,10 @@ class ProgramsTable
                     ->searchable()->color(fn ($record) => Str::startsWith($record->kd_program_str, 'P') ? 'primary' : 'secondary')
                     ->sortable()->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('pagu_program')
-                    ->numeric()
+                ->money('IDR', true)->prefix('Rp ')
+                    ->suffix(',-')
+                    ->formatStateUsing(fn ($state) => number_format($state, 0, ',', '.'))
+                    ->weight(FontWeight::Medium)
                     ->sortable()->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('pagu_program_perubahan')
                     ->numeric()
@@ -64,7 +82,7 @@ class ProgramsTable
                 //
             ])
             ->recordActions([
-                ViewAction::make()->label(false)
+                ViewAction::make()->label(false)->icon('heroicon-s-arrow-long-right')->color('primary')
                 ->url(fn ($record) => route('filament.simetris.resources.programs.show-program', ['record' => Str::slug($record->kd_program)])),
                 // EditAction::make(),
             ])

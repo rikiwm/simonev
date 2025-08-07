@@ -23,7 +23,7 @@ class ApbdsTable
           ->query(Skpd::query()
           ->when(!auth()->user()->hasRole('super_admin'), function ($query) {$namaSatker = auth()->user()->skpd->name_satker;$query->where('name_satker', 'LIKE', '%' . $namaSatker . '%');}
             )
-            ->where('apbds.event_date', '=', Carbon::now()->subDays(3)->format('Y-m-d'))
+            ->where('apbds.event_date', '=', Carbon::now()->subDays(5)->format('Y-m-d'))
                     ->join(
                         'apbds',
                         'apbds.SKPD',
@@ -32,6 +32,7 @@ class ApbdsTable
                     )->select(
                         'skpds.name_satker',
                         'skpds.kd_satker_str',
+                        'skpds.kd_satker',
                         'skpds.id',
                         DB::raw('SUM(apbds.ANGGARAN) as Pagu'),
                         DB::raw('SUM(apbds.REALISASI) as Realisasi'),
@@ -39,7 +40,7 @@ class ApbdsTable
                         'apbds.event_date',
                     )->groupBy('apbds.SKPD', 'apbds.tahun_anggaran', 'apbds.event_date', 'skpds.name_satker', 'skpds.id')
 
-                )
+                )->paginated(40)->deferLoading()
             ->columns([
                 TextColumn::make('name_satker')->weight(FontWeight::Medium)->label('Satker')->description(fn ($record) => $record->kd_satker_str)
                     ->sortable()->size(TextSize::Medium)->wrap()
@@ -82,7 +83,7 @@ class ApbdsTable
                 //
             ])
             ->recordActions([
-                ViewAction::make()->label(false)->url(fn ($record) => route('filament.simetris.resources.programs.index', ['record' => Str::slug($record->name_satker)])),
+                ViewAction::make()->label(false)->url(fn ($record) => route('filament.simetris.resources.programs.index', ['record' => Str::slug($record->kd_satker)])),
                 // EditAction::make()->label(false)->url(fn ($record) => route('filament.resources.apbds.apbd.edit', ['record' => $record->id])),
             ])
             ->toolbarActions([

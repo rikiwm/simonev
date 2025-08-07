@@ -17,12 +17,22 @@ use UnitEnum;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use App\Filament\Resources\Programs\Widgets\ProgramOverview;
+
 
 class ProgramResource extends Resource
 {
     protected static ?string $model = Program::class;
     protected static string | UnitEnum | null $navigationGroup = 'Spm';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+
+    public static function getWidgets(): array
+    {
+        return [
+            ProgramOverview::class,
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {

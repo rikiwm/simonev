@@ -16,6 +16,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use App\Filament\Resources\Apbds\Widgets\ApbdState;
+
 
 class ApbdResource extends Resource
 {
@@ -23,6 +25,15 @@ class ApbdResource extends Resource
     protected static string | UnitEnum | null $navigationGroup = 'Monitoring';
 // protected static ?string $modelLabel = 'Kinerja';
     // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+   public static function getWidgets(): array
+    {
+        return [
+            ApbdState::class,
+        ];
+    }
+    
+
 
     public static function form(Schema $schema): Schema
     {

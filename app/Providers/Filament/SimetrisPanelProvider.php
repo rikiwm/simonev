@@ -58,7 +58,7 @@ class SimetrisPanelProvider extends PanelProvider
             ->login()
             ->subNavigationPosition(SubNavigationPosition::Top)
               ->sidebarFullyCollapsibleOnDesktop()
-            ->maxContentWidth(Width::ScreenExtraLarge)
+            ->maxContentWidth(Width::ScreenTwoExtraLarge)
             ->profile(isSimple: false)
              ->broadcasting(false)
             ->sidebarWidth('18rem')
