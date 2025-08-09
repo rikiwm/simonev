@@ -29,9 +29,9 @@ use Filament\Support\Enums\ActionSize;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
-class ViewProgram extends Page implements HasForms
+class ViewProgram extends ViewRecord
 {
-    use InteractsWithForms;
+    // use InteractsWithForms;
 
     protected static string $resource = ProgramResource::class;
 //    protected  ?string $heading = 'MONITORING KINERJA';
@@ -45,8 +45,8 @@ class ViewProgram extends Page implements HasForms
         ];
     }
 
-      public function mount(string $record, string $skpd)
-    {
+    //   public function mount(string $record, string $skpd)
+    // {
         // $datakegiatan = sikd::where('IDKEG', $record)
         //     ->where('UNITKEY', $skpd)
         //     ->where('tahun', Carbon::now()->format('Y-m-d'))
@@ -131,7 +131,7 @@ class ViewProgram extends Page implements HasForms
         //         //     ->toArray(),
         //     ])->toArray(),
         // ]);
-    }
+    // }
 
     // public static function getRelativeRouteName(): string
     // {

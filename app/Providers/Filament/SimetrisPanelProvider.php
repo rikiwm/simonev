@@ -61,7 +61,7 @@ class SimetrisPanelProvider extends PanelProvider
             ->maxContentWidth(Width::ScreenTwoExtraLarge)
             ->profile(isSimple: false)
              ->broadcasting(false)
-            ->sidebarWidth('18rem')
+            ->sidebarWidth('14rem')
             ->colors([
                 'primary' => Color::Amber,
                 'secondary' => Color::Purple,

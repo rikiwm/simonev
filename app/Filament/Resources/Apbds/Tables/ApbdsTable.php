@@ -23,7 +23,7 @@ class ApbdsTable
           ->query(Skpd::query()
           ->when(!auth()->user()->hasRole('super_admin'), function ($query) {$namaSatker = auth()->user()->skpd->name_satker;$query->where('name_satker', 'LIKE', '%' . $namaSatker . '%');}
             )
-            ->where('apbds.event_date', '=', Carbon::now()->subDays(5)->format('Y-m-d'))
+            ->where('apbds.event_date', '=', Carbon::now()->subDays(7)->format('Y-m-d'))
                     ->join(
                         'apbds',
                         'apbds.SKPD',
@@ -54,7 +54,7 @@ class ApbdsTable
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('Realisasi')->label('Realisasi')
-                         ->money('IDR', true)->prefix('Rp ')
+                         ->money('IDR', true)->prefix('Rp. ')
                     ->suffix(',-')
                     ->formatStateUsing(fn ($state) => number_format($state, 0, ',', '.'))
                     ->weight(FontWeight::Medium)
@@ -87,9 +87,9 @@ class ApbdsTable
                 // EditAction::make()->label(false)->url(fn ($record) => route('filament.resources.apbds.apbd.edit', ['record' => $record->id])),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                // BulkActionGroup::make([
+                //     DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 }

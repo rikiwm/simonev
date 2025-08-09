@@ -25,6 +25,7 @@ use App\Models\Bidang;
 use Filament\Notifications\Notification;
 class ShowProgram extends Page 
 {
+     use InteractsWithRecord;
     protected static string $resource = ProgramResource::class;
     protected string $view = 'filament.resources.programs.pages.show-program';
      public ?array $data = [];

@@ -7,6 +7,7 @@ use App\Filament\Resources\Programs\Pages\EditProgram;
 use App\Filament\Resources\Programs\Pages\ListPrograms;
 use App\Filament\Resources\Programs\Pages\ViewProgram;
 use App\Filament\Resources\Programs\Pages\ShowProgram;
+use App\Filament\Resources\Programs\RelationManagers\KegiatanRelationManager;
 use App\Filament\Resources\Programs\Schemas\ProgramForm;
 use App\Filament\Resources\Programs\Schemas\ProgramInfolist;
 use App\Filament\Resources\Programs\Tables\ProgramsTable;
@@ -53,6 +54,7 @@ class ProgramResource extends Resource
     {
         return [
             //
+            KegiatanRelationManager::class
         ];
     }
 
