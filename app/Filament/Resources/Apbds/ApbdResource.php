@@ -24,7 +24,7 @@ class ApbdResource extends Resource
     protected static ?string $model = Apbd::class;
     protected static string | UnitEnum | null $navigationGroup = 'Monitoring';
 // protected static ?string $modelLabel = 'Kinerja';
-    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedQrCode;
 
    public static function getWidgets(): array
     {

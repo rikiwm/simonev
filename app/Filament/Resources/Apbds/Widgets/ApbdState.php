@@ -10,7 +10,9 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class ApbdState extends StatsOverviewWidget
 {
     protected ?string $pollingInterval = null;
-    protected static bool $isLazy = true;
+    // protected static bool $isLazy = true;
+    protected static bool $isLazy = false;
+
     protected ?string $heading = 'Analytics';
   use InteractsWithPageTable;
 protected int | string | array $columnSpan = '2';

@@ -8,6 +8,7 @@ use App\Models\Kegiatan;
 use Filament\Actions\CreateAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -18,12 +19,14 @@ use Filament\Support\Enums\TextSize;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\InfoList\InfoList;
+use Filament\Schemas\Components\Section;
 use Illuminate\Support\Str;
 
 
 class KegiatanRelationManager extends RelationManager
 {
-    protected static string $relationship = 'kegiatan';
+    protected static string $relationship = 'kegiatans';
     protected static bool $isLazy = false;
     protected static ?string $relatedResource = KegiatanResource::class;
 
@@ -108,4 +111,6 @@ class KegiatanRelationManager extends RelationManager
                     ->numeric(),
         ]);
 }
+
+
 }

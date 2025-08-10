@@ -9,7 +9,12 @@ use Filament\Support\Enums\Size;
 class ListPrograms extends ListRecords
 {
     protected static string $resource = ProgramResource::class;
-    protected ?string $heading = '  Heading';
+    protected ?string $heading = 'Program';
+
+    // public function getSubheading(): ?string
+    // {
+    //     return __($this->record->nama_program);
+    // }
     protected function getHeaderActions(): array
     {
         return [

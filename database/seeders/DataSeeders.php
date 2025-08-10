@@ -149,9 +149,9 @@ class DataSeeders extends Seeder
 
             //     ]);
             // }
-
+// C:\laragon\www\simonev\static\nomenkaltur-2026.json
             // $indikatorsubkegiatan = json_decode(file_get_contents(base_path('static/master_indikator_program.json')), true);
-            // $indikatorsubkegiatan = json_decode(file_get_contents(base_path('static/nomenklatur_kinerja_indikators.json')), true);
+            $indikatorsubkegiatan = json_decode(file_get_contents(base_path('static/nomenkaltur-2026.json')), true);
             // $p = json_decode(file_get_contents(base_path('static/program_master.json')), true);
             // $k = json_decode(file_get_contents(base_path('static/kegiatan_master.json')), true);
             // $sk = json_decode(file_get_contents(base_path('static/subkegiatan_master.json')), true);
@@ -179,28 +179,32 @@ class DataSeeders extends Seeder
 
             //                 ]);
             //             }
-            // foreach ($indikatorsubkegiatan as $key => $value) {
-            //     \App\Models\IndikatorSubKegiatan::create([
-            //         'kd_bidang' => Str::limit($value['kd_program'], 4, ''),
-            //         'kd_program' => $value['kd_program'],
-            //         'kd_kegiatan' => $value['kd_kegiatan'],
-            //         'kd_subkegiatan' => $value['kd_subkegiatan'],
-            //         'kinerja' => $value['kinerja'],
-            //         'indikator' => $value['indikator'],
-            //         'satuan' => $value['satuan'],
-            //         'tag' => $value['tag'],
-            //         'definisi_operasional' => $value['definisi_operasional'],
-            //         'satker_id' => $value['satker_id'],
-            //         'pelaksana' => $value['pelaksana'],
-            //         'spm' => $value['spm'],
-            //         'jenis' => $value['jenis'],
-            //         'subkeg_before' => Str::limit($value['subkeg_before'], 17, ''),
-            //         'ket_subkeg_before' =>  Str::substr($value['subkeg_before'], 17, 255),
-            //         'is_active' => $value['is_active'],
-            //         'is_deleted' => 0,
+            foreach ($indikatorsubkegiatan as $key => $indikator) {
+                \App\Models\IndikatorSubKegiatan::create([
+                    'kd_bidang' => Str::limit($indikator['kd_program'], 4, ''),
+                    'kd_program' => $indikator['kd_program'],
+                    'kd_kegiatan' => $indikator['kd_kegiatan'],
+                    'kd_subkegiatan' => $indikator['kd_subkegiatan'],
+                    'kinerja' => $indikator['kinerja'],
+                    'indikator' => $indikator['indikator'],
+                    'satuan' => $indikator['satuan'],
+                    'tag' => $indikator['tag'],
+                    'definisi_operasional' => $indikator['definisi_operasional'],
+                    'satker_id' => $indikator['satker_id'],
+                    'pelaksana' => $indikator['pelaksana'],
+                    'spm' => $indikator['spm'],
+                    'jenis' => $indikator['jenis'],
+                    'subkeg_before' => Str::limit($indikator['subkeg_before'], 17, ''),
+                    'ket_subkeg_before' =>  Str::substr($indikator['subkeg_before'], 17, 255),
+                    'is_active' => $indikator['is_active'],
+                    'is_deleted' => 0,
+// //  {"id":1072, "kd_program":"1.01.02", "kd_kegiatan":"1.01.02.2.02", "kd_subkegiatan":"1.01.02.2.02.0040", "kinerja":"ingkatan Kompetensi dan Kualifikasi", 
+// "indikator":"Jumlah Pendidik dan Tenaga Kependidikan yang Mendapatkan Fasilitasi Kenaikan Pangkat/Golongan, Pemberian Promosi, Peningkatan Kompetensi dan Kualifikasi", 
+// "satuan":"Orang", "tag":"[\"STATISTIK SEKTORAL\", \"ANGGARAN RESPONSIF GENDER (ASTACITA)\"]", "definisi_operasional":"Peningkatan kualifikasi dan kompetensi bagi pendidik dan tenaga kependidikan yang belum memenuhi ku
+// alifikasi dan kompetensi yang dipersyaratkan", "satker_id":0, "pelaksana":"bidang yang mengurusi urusan sekolah menengah pertama", "spm":"SPM", "jenis":"Aktifitas", "subkeg_before":"", "is_active":1},
 
-            //     ]);
-            // }
+                ]);
+            }
 
             // // foreach ($p as $key => $value) {
             //     \App\Models\Program::create([

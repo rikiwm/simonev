@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Programs\Resources\Kegiatans\Resources\SubKegiatans\Tables;
 
+use App\Models\SubKegiatan;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -18,11 +19,12 @@ class SubKegiatansTable
 {
     public static function configure(Table $table): Table
     {
+        // dd($table);
         return $table
+        ->defaultSort('kd_subkegiatan_str','asc')
         ->deferLoading()
             ->columns([
                 TextColumn::make('tahun_anggaran')->label('Thn')->toggleable(isToggledHiddenByDefault: true),
-                // TextColumn::make('kd_klpd')
                 //     ->searchable(),
                 // TextColumn::make('kd_satker')
                 //     ->numeric()
@@ -34,11 +36,13 @@ class SubKegiatansTable
                 //     ->numeric()
                 //     ->sortable(),
                 TextColumn::make('nama_subkegiatan')
-                 ->prefix(fn($record) => $record->kd_subkegiatan_str.' - ')->wrap()->size(TextSize::Small)->weight(FontWeight::Medium)
+                 ->prefix(fn($record) =>  $record->kd_subkegiatan_str.' - ')->wrap()->size(TextSize::Small)->weight(FontWeight::Medium)
                     ->searchable()->color(fn ($record) => Str::startsWith($record->kd_subkegiatan_str, 'P') ? 'primary' : 'secondary')
                     ->sortable()  ->toggleable(isToggledHiddenByDefault: false),
+                TextColumn::make('indikatorsubkegiatan.kinerja')->wrap()->description(fn($record) => $record->indikatorsubkegiatan?->satuan)->toggleable(isToggledHiddenByDefault: false)->label('Kinerja')->size(TextSize::Small),
+
                 TextColumn::make('kd_subkegiatan_str')
-                    ->searchable()  ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('pagu_subkegiatan')
                     ->money('IDR', true)->prefix('Rp ')
                     ->suffix(',-')

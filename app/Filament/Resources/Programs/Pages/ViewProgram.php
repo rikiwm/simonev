@@ -6,6 +6,7 @@ use App\Filament\Resources\Programs\ProgramResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 use Carbon\Carbon;
+use Filament\Actions\Action as ActionsAction;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
@@ -22,27 +23,110 @@ use Filament\Forms\Components\View;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\Page;
 use Filament\Support\Enums\ActionSize;
+use Filament\Support\Enums\Size;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 class ViewProgram extends ViewRecord
 {
     // use InteractsWithForms;
-
     protected static string $resource = ProgramResource::class;
-//    protected  ?string $heading = 'MONITORING KINERJA';
-//     protected  ?string $subheading = 'Program Kegiatan SIPD Daerah dan lainya';
-//     protected static string $view = 'filament.simetris.resources.sikd-resource.pages.sikd-detail';
+    protected ?string $heading = 'Program';
+    public $indikatorprogram = [];
 
+    public function getSubheading(): ?string
+    {
+        return __($this->record->nama_program);
+    }
+    
     protected function getHeaderActions(): array
     {
         return [
-            EditAction::make(),
+            // EditAction::make(),
+            ActionsAction::make('addIndikator')
+                ->label('Tambah Indikator')
+                ->color('secondary')
+                ->size(Size::ExtraSmall)
+                ->icon('heroicon-o-plus-circle')
+                   ->form([TextInput::make('satuan')
+                                    ->label('Satuan')
+                                    ->required()
+                                    ->columnSpan(2),
+                                ToggleButtons::make('is_sum')
+                                    ->label('Akumulasi?')
+                                    ->boolean()
+                                    ->grouped()
+                                    ->inline()
+                                    ->columnSpan(2),
+                                Textarea::make('indikator')
+                                    ->label('Indikator')
+                                    ->rows(3)
+                                    ->columnSpanFull(),
+                            ])
+                ->action(function ($livewire) {
+                      $fill = $livewire->mountedActions[0]['data'] ?? [];
+                  dd($fill);
+                //    $record->update([
+                //                     'satuan'   => $data['satuan'],
+                //                     'is_sum'   => $data['is_sum'],
+                //                     'indikator'=> $data['indikator'],
+                //                 ]);
+                    Notification::make()
+                        ->title('Indikator Program berhasil ditambah')
+                        ->body('Indikator Program berhasil ditambah')
+                        ->success()
+                        ->send();
+                }),
         ];
+    }
+    //    protected function getFormSchema(): array
+    // {
+    // {
+    //     return [
+    //         ProgramInfolist::configure($schema);
+    //     ];
+    // }
+public function mount(int|string $record): void
+{
+    parent::mount($record);
+
+    $data = $this->record->indikatorprogram;
+
+    // Debug dulu kalau mau lihat isi $data
+    // dd($data);
+
+    $datas = collect(range(1, 1))->map(function ($i) use ($data) {
+        return [
+            'indikator'     => $data->indikator, // bisa diubah kalau target per triwulan beda
+            'satuan'     => Str::limit( $data->indikator,12,'', preserveWords:true), // bisa diubah kalau target per triwulan beda
+            'triwulan'   => "Triwulan {$i}",
+            'target'     => null, // bisa diubah kalau target per triwulan beda
+            'realisasi'  => null,
+            'keterangan' => null,
+        ];
+    })->toArray();
+
+    $this->indikatorprogram = $datas;
+
+    // dd($this->indikatorprogram);
+}
+
+
+    protected function beforeFill(): void
+    {
+        //  Log::info('Melihat data program:', $this->record);
+    }
+
+    protected function afterFill(): void
+    {
+            Notification::make()
+                ->title('Program ini sudah selesai.')
+                ->warning()
+                ->send();
     }
 
     //   public function mount(string $record, string $skpd)

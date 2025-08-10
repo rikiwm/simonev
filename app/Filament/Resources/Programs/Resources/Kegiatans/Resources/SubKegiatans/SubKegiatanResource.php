@@ -15,6 +15,8 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 class SubKegiatanResource extends Resource
 {
@@ -23,6 +25,18 @@ class SubKegiatanResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $parentResource = KegiatanResource::class;
+
+    public static function getTableQuery(): Builder
+    {
+        return parent::getTableQuery()
+            ->with('indikatorsubkegiatan')
+            ->orderBy('kd_subkegiatan_str', 'asc');
+    }
+
+    public static function getEloquentQuery(): EloquentBuilder
+    {
+         return parent::getEloquentQuery()->with('indikatorsubkegiatan');
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -36,15 +50,14 @@ class SubKegiatanResource extends Resource
 
     public static function table(Table $table): Table
     {
+      
         return SubKegiatansTable::configure($table);
     }
 
     public static function getRelations(): array
     {
         return [
-            // KegiatanResource::class
-            // SubKegiatanResource::class
-
+           
         ];
     }
 

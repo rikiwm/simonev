@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class IndikatorSubKegiatan extends Model
 {
@@ -10,4 +11,10 @@ class IndikatorSubKegiatan extends Model
      protected $cast = [
         'tag' => 'json',
     ];
+
+    
+     public function ubkegiatan(): BelongsTo
+     {
+          return $this->belongsTo(SubKegiatan::class, 'kd_subkegiatan_str', 'kd_subkegiatan');
+     }
 }

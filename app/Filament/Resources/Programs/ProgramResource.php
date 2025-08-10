@@ -19,13 +19,14 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use App\Filament\Resources\Programs\Widgets\ProgramOverview;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class ProgramResource extends Resource
 {
     protected static ?string $model = Program::class;
     protected static string | UnitEnum | null $navigationGroup = 'Spm';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static bool $shouldRegisterNavigation = false;
 
 
     public static function getWidgets(): array
@@ -57,6 +58,16 @@ class ProgramResource extends Resource
             KegiatanRelationManager::class
         ];
     }
+
+    public static function getEloquentQuery(): Builder
+    {
+         return parent::getEloquentQuery()->with(['bidang','indikatorprogram']);
+        
+    }
+    // {
+    //      return parent::getEloquentQuery()->with('indikatorsubkegiatan');
+    // }
+
 
     public static function getPages(): array
     {

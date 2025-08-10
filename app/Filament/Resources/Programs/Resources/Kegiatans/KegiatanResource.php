@@ -65,6 +65,18 @@ class KegiatanResource extends Resource
             'edit' => EditKegiatan::route('/{record}/edit'),
         ];
     }
+
+    // private  function vd($tw)
+    // {
+    //     $tw =  collect(range(1, 4))->map(fn($i) => [
+    //             'triwulan' => "Triwulan {$i}",
+    //             'target' => null,
+    //             'realisasi' => null,
+    //             'keterangan' => null,
+    //         ])->toArray();
+    // }
+
+
 }
 
 

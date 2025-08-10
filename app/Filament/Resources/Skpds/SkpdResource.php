@@ -21,7 +21,7 @@ class SkpdResource extends Resource
 {
     protected static ?string $model = Skpd::class;
     protected static string | UnitEnum | null $navigationGroup = 'Companies';
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBookmarkSquare;
 
     public static function form(Schema $schema): Schema
     {
