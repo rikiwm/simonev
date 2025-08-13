@@ -20,7 +20,7 @@ class ViewKegiatan extends ViewRecord
     use InteractsWithForms;
 
     protected static string $resource = KegiatanResource::class;
-    public $triwulan = [];
+    public $indikator = [];
 
     protected function getHeaderActions(): array
     {
@@ -32,13 +32,20 @@ class ViewKegiatan extends ViewRecord
 
     public function mount(int|string $record): void
     {
-         $this->triwulan = $this->record->triwulan ?? collect(range(1, 4))->map(fn ($i) => [
-            'triwulan' => "Triwulan {$i}",
-            'target' => null,
-            'realisasi' => null,
+         parent::mount($record);
+    // $data = $this->record->indikatorprogram ?? IndikatorProgram::where('nama_program', $this->record->nama_program)->firstOrFail();
+        $this->indikator = collect(range(1, 1))->map(function ($i)  {
+        return [
+            'indikator'     =>  null, // bisa diubah kalau target per triwulan beda
+            'satuan'     => null, 
+            // 'satuan'     => Str::limit( $data->indikator ?? null,12,'', preserveWords:true), 
+            'triwulan'   => "Triwulan {$i}",
+            'target'     => null, // bisa diubah kalau target per triwulan beda
+            'realisasi'  => null,
             'keterangan' => null,
-        ])->toArray();
-        parent::mount($record);
+        ];
+    })->toArray();
+        // parent::mount($record);
 // dd($this->triwulan);
     }
 

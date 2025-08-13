@@ -11,10 +11,9 @@ class IndikatorSubKegiatan extends Model
      protected $cast = [
         'tag' => 'json',
     ];
-
     
-     public function ubkegiatan(): BelongsTo
-     {
-          return $this->belongsTo(SubKegiatan::class, 'kd_subkegiatan_str', 'kd_subkegiatan');
-     }
+     // public function subkegiatan(): BelongsTo
+     // {
+     //      return $this->belongsTo(SubKegiatan::class, 'kd_subkegiatan_str', 'kd_subkegiatan');
+     // }
 }

@@ -25,9 +25,9 @@ class Program extends Model
               return $this->hasMany(Kegiatan::class, 'kd_program', 'kd_program');
        }
 
-       public function indikatorprogram(): BelongsTo
+       public function indikatorprogram(): HasMany
        {
-              return $this->belongsTo(IndikatorProgram::class, 'kd_program', 'kd_program');
+              return $this->hasMany(IndikatorProgram::class, 'kd_program', 'kd_program');
        }
 
 

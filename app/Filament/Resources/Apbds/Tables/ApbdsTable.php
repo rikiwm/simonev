@@ -23,7 +23,7 @@ class ApbdsTable
           ->query(Skpd::query()
           ->when(!auth()->user()->hasRole('super_admin'), function ($query) {$namaSatker = auth()->user()->skpd->name_satker;$query->where('name_satker', 'LIKE', '%' . $namaSatker . '%');}
             )
-            ->where('apbds.event_date', '=', Carbon::now()->subDays(8)->format('Y-m-d'))
+            ->where('apbds.event_date', '=', Carbon::now()->subDays(11)->format('Y-m-d'))
                     ->join(
                         'apbds',
                         'apbds.SKPD',

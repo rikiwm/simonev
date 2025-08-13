@@ -9,6 +9,7 @@ use App\Filament\Resources\Programs\Resources\Kegiatans\Resources\SubKegiatans\P
 use App\Filament\Resources\Programs\Resources\Kegiatans\Resources\SubKegiatans\Schemas\SubKegiatanForm;
 use App\Filament\Resources\Programs\Resources\Kegiatans\Resources\SubKegiatans\Schemas\SubKegiatanInfolist;
 use App\Filament\Resources\Programs\Resources\Kegiatans\Resources\SubKegiatans\Tables\SubKegiatansTable;
+use App\Models\IndikatorSubKegiatan;
 use App\Models\SubKegiatan;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -17,6 +18,7 @@ use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Support\Str;
 
 class SubKegiatanResource extends Resource
 {
@@ -28,8 +30,9 @@ class SubKegiatanResource extends Resource
 
     public static function getTableQuery(): Builder
     {
+
         return parent::getTableQuery()
-            ->with('indikatorsubkegiatan')
+            ->with('indikatorsubkegiatan','indikatorsubkegiatanNull')
             ->orderBy('kd_subkegiatan_str', 'asc');
     }
 

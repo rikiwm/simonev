@@ -20,6 +20,7 @@ use Filament\Schemas\Components\Flex;
 use Filament\Support\Enums\FontWeight;
 use Filament\Support\Enums\TextSize;
 use Filament\Infolists\Components\RepeatableEntry;
+use Filament\Support\Enums\Alignment;
 
 class KegiatanInfolist
 {
@@ -76,14 +77,14 @@ class KegiatanInfolist
                         // ComponentsTextInput::make('progres')->columns(6)->inlineLabel()->label('Proges'),
                         TextEntry::make('tahun_anggaran')->badge(),
                     ]),
-                Repeater::make('triwulan')->label('s')
+ 
+                Repeater::make('indikator')->hiddenLabel()
                     ->schema([
-                        Textarea::make('triwulan')
-                        ->label('Indikator Kinerja')->helperText('Berdasarkan Nomenklatur (Meta Data 2026)'),
+                        Textarea::make('indikator')
+                        ->label('Indikator Kegiatan')->helperText('Berdasarkan Nomenklatur (Meta Data 2026)'),
                         Flex::make([
                             TextInput::make('tahun')->label('Satuan')->grow(true)->columnSpanFull(),
                             Radio::make('is_akumulasi')->boolean()->inline()->inlineLabel(false)->label('Akumulasi ?')
-                                ->helperText('Default :Yes!')
                                 ->grow(false)
                         ])
                     ])
@@ -96,13 +97,14 @@ class KegiatanInfolist
 
                                         )
                                     ])
-                    ->addable()->statePath('triwulan')
+                    ->addable()->statePath('indikator')
                     ->reorderable(false)
                     ->collapsible()
                     ->minItems(4)
                     ->defaultItems(4)
-                    ->deletable()
-                    ->grid(2),
+                    ->deletable()->addActionAlignment(Alignment::End)
+                    ->grid(1),
+
             ]);
     }
 }

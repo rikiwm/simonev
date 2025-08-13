@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Programs\Pages;
 
 use App\Filament\Resources\Programs\ProgramResource;
+use App\Models\IndikatorProgram;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 use Carbon\Carbon;
@@ -37,6 +38,7 @@ class ViewProgram extends ViewRecord
     protected static string $resource = ProgramResource::class;
     protected ?string $heading = 'Program';
     public $indikatorprogram = [];
+    protected $listeners = ['refresh' => '$refresh'];
 
     public function getSubheading(): ?string
     {
@@ -94,25 +96,43 @@ public function mount(int|string $record): void
 {
     parent::mount($record);
 
-    $data = $this->record->indikatorprogram;
-
-    // Debug dulu kalau mau lihat isi $data
+    $data = $this->record->indikatorprogram ?? null;
+    // if($data->isEmpty()){
+    //      $new =  IndikatorProgram::where('nama_program', $this->record->nama_program)->first();
+    //     $data = $new;
+    // }
     // dd($data);
-
-    $datas = collect(range(1, 1))->map(function ($i) use ($data) {
+    $datas = collect($data)->map(function ($item,$key) use ($data) {
         return [
-            'indikator'     => $data->indikator, // bisa diubah kalau target per triwulan beda
-            'satuan'     => Str::limit( $data->indikator,12,'', preserveWords:true), // bisa diubah kalau target per triwulan beda
-            'triwulan'   => "Triwulan {$i}",
-            'target'     => null, // bisa diubah kalau target per triwulan beda
+            'id'     =>  $item->id ?? null,
+            'kode_indikator'     =>  null,
+            'kd_program'     => $item->kd_program ?? null,
+            'kd_program_str'     => $item->kd_program_str?? null,
+            'indikator'     => $item->indikator?? null, 
+            'satuan'     =>  $item->satuan ?? Str::limit($item->indikator ?? null,12,'', preserveWords:true), 
+            'type'   => "Indikator Program - {$key}",
+            'key'   => "Indikator ke-{$key}",
+            'target'     => null,
             'realisasi'  => null,
             'keterangan' => null,
         ];
     })->toArray();
-
     $this->indikatorprogram = $datas;
-
-    // dd($this->indikatorprogram);
+    //  "kd_bidang" => "1.05"
+    //   "kd_program" => "2529222"
+    //   "kd_program_str" => "1.05.01"
+    //   "nama_program" => "PROGRAM PENUNJANG URUSAN PEMERINTAHAN DAERAH KABUPATEN/KOTA"
+    //   "satuan" => null
+    //   "indikator" => "Persentase terlaksananya penunjang urusan pemerintah"
+    //   "definisi" => null
+    //   "indikator_outcome_canges" => null
+    //   "indikator_outcome_before" => null
+    //   "kd_satker" => "75549"
+    //   "satker" => "DINAS PENDIDIKAN DAN KEBUDAYAAN"
+    //   "tags" => null
+    //   "sumber_data" => null
+    //   "is_active" => 1
+    //   "is_canges" => 0
 }
 
 
