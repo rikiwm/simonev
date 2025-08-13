@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Programs\Schemas;
 
 use App\Models\IndikatorProgram;
+use App\Models\RealisasiKinerja;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Radio;
@@ -54,39 +55,41 @@ class ProgramInfolist
                     ->compact()
                     ->footerActions([
                         Action::make('saveOutcome')
-                            ->label('Edit')
+                            ->label('Simpan')
                             ->size(Size::ExtraSmall)
                             ->color('gray')->outlined()
                             ->icon(Heroicon::OutlinedArchiveBox)
                             ->requiresConfirmation()
-                                ->action(function ($record, $livewire) {
-                                    // dd($livewire);
-                                    // $stateIp = $livewire->indikatorprogram->first(); 
-                                      foreach ($livewire->indikatorprogram as $item) {
-                                $ip = IndikatorProgram::updateOrCreate(
-                                    [
-                                        'indikator' => $item['indikator'],
-                                        'kd_program_str' =>  $record->kd_program_str,
-                                    ],
-                                    [
-                                      'kd_bidang' =>   $record->kd_bidang_str,
-                                       'kd_program' =>  $record->kd_program,
-                                        'kd_program_str' =>  $record->kd_program_str,
-                                         'nama_program' => $record->nama_program,
-                                          'satuan' => $item['satuan'], 
-                                          'indikator' => $item['indikator'],
-                                           'definisi' => null, 
-                                           'indikator_outcome_canges' =>  null,
+                            ->action(function ($record, $livewire) {
+                                // dd($livewire);
+                                // $stateIp = $livewire->indikatorprogram->first(); 
+                                foreach ($livewire->indikatorprogram as $item) {
+                                    $ip = IndikatorProgram::updateOrCreate(
+                                        [
+                                            'indikator' => $item['indikator'],
+                                            'kd_program_str' =>  $record->kd_program_str,
+                                        ],
+                                        [
+                                            'kd_bidang' =>   $record->kd_bidang_str,
+                                            'kd_program' =>  $record->kd_program,
+                                            'kd_program_str' =>  $record->kd_program_str,
+                                            'nama_program' => $record->nama_program,
+                                            'satuan' => $item['satuan'],
+                                            'indikator' => $item['indikator'],
+                                            'definisi' => null,
+                                            'indikator_outcome_canges' =>  null,
                                             'indikator_outcome_before' =>  null,
-                                             'kd_satker' =>  auth()->user()->skpd->kd_satker, 
-                                             'satker' =>  auth()->user()->skpd->name_satker, 
-                                             'tags' =>  null, '
+                                            'kd_satker' =>  auth()->user()->skpd->kd_satker,
+                                            'satker' =>  auth()->user()->skpd->name_satker,
+                                            'tags' =>  null,
+                                            '
                                              sumber_data' => 'Mnaual',
-                                              'is_active' => 1,
-                                               'is_canges'=> 0
+                                            'is_active' => 1,
+                                            'is_canges' => 0
 
-                                ]);
-                            }
+                                        ]
+                                    );
+                                }
                                 // $record->update([
                                 //     'satuan'   => $data['satuan'],
                                 //     'is_sum'   => $data['is_sum'],
@@ -102,9 +105,9 @@ class ProgramInfolist
                     ])
 
                     ->schema([
-                Repeater::make('indikatorprogram')->label('Indikator Kinerja') ->hiddenLabel()
-                ->schema([
-                    Textarea::make('indikator')->label('Indikator Kinerja')->helperText('Berdasarkan Nomenklatur (Meta Data 2026)'),
+                        Repeater::make('indikatorprogram')->label('Indikator Kinerja')->hiddenLabel()
+                            ->schema([
+                                Textarea::make('indikator')->label('Indikator Kinerja')->helperText('Berdasarkan RPJMD (Meta Data 2026)'),
                                 Flex::make([
                                     TextInput::make('id')->hidden(),
                                     TextInput::make('kd_program')->hidden(),
@@ -113,14 +116,14 @@ class ProgramInfolist
                                     Radio::make('is_akumulasi')->boolean()->inline()->inlineLabel(false)->label('Akumulasi ?')
                                         ->helperText('Default :Yes!')
                                         ->grow(false)
-                                        ])
                                 ])
-                                ->addable()
-                                ->reorderable(false)
-                                ->collapsible()
-                                 ->deleteAction(
-                                    fn(Action $action) => $action->requiresConfirmation()->icon('heroicon-m-document-arrow-down')
-                                     ->action(function (array $arguments, Get $get, $livewire) {
+                            ])
+                            ->addable()
+                            ->reorderable(false)
+                            ->collapsible()
+                            ->deleteAction(
+                                fn(Action $action) => $action->requiresConfirmation()->icon('heroicon-m-document-arrow-down')
+                                    ->action(function (array $arguments, Get $get, $livewire) {
                                         $index = $arguments['item'] ?? null;
                                         $id = $get("indikatorprogram.{$index}.id");
 
@@ -139,60 +142,128 @@ class ProgramInfolist
 
                                             Notification::make()
                                                 ->title('Indikator berhasil dihapus')
-                                                ->body('Indikator '.$id.' berhasil dihapus')
+                                                ->body('Indikator ' . $id . ' berhasil dihapus')
                                                 ->success()
                                                 ->send();
-
-                                            
                                         } else {
                                             Notification::make()
                                                 ->title('Data sudah tidak ada')
                                                 ->danger()
                                                 ->send();
                                         }
-                                    $livewire->dispatch('refresh');
-
+                                        $livewire->dispatch('refresh');
                                     })
-                                )
-                                //  ->minItems(4)
-                                //  ->minItems(4)
-                                //  ->defaultItems(4)
-                                // ->deletable(false)
-                                ->extraItemActions([
-                                    Action::make('save')->icon('heroicon-m-document-arrow-up')
-                                                ->label(false)
-                                            ->requiresConfirmation()
-                                                ->action(function (array $arguments, Get $get) {
-                                                    $index = $arguments['item'] ?? null;
-                                                    dd( $get("indikatorprogram.{$index}.indikator"));
-                                        })
-                                    ])
-                                // ->extraItemActions([
-                                //     Action::make('save')
-                                //         ->label(false)
-                                //       ->action(function (array $arguments, Get $get) {
-                                //             $index = $arguments['item'] ?? null;
+                            )
+                            //  ->minItems(4)
+                            //  ->minItems(4)
+                            //  ->defaultItems(4)
+                            // ->deletable(false)
+                            ->extraItemActions([
+                                Action::make('save')->icon('heroicon-m-document-arrow-up')->color('success')
+                                    ->label(false)
+                                    // ->requiresConfirmation()
+                                    ->form(function (array $arguments, Get $get, $livewire,$record) {
+                                        //   ->action(function (array $arguments, Get $get, $livewire) {
+                                        $index = $arguments['item'] ?? null;
+                                        $id = $get("indikatorprogram.{$index}.id");
+                                        // dd($id);
+                                        // Cari data existing realisasi
+                                        $existing = RealisasiKinerja::query()
+                                        ->where('indikator_sub_kegiatan_id', $id)
+                                            ->where('kode_type', $record->kd_program)
+                                            ->where('kodeindikator', $id)
+                                            ->where('tahun_realisasi', $record->tahun_anggaran)
+                                            ->first();
+                                        // dd($existing);
+                                        return [
+                                            TextInput::make('target')
+                                                ->required()->default($existing?->target),
+                                            TextInput::make('tw1')
+                                                ->label('Triwulan 1')
+                                                ->numeric()
+                                                // ->required()
+                                                ->default($existing?->real_p_t1)
+                                                ->columnSpan(2),
+                                            TextInput::make('tw2')
+                                                ->label('Triwulan 2')
+                                                ->numeric()
+                                                // ->required()
+                                                ->default($existing?->real_p_t2)
+                                                ->columnSpan(2),
+                                            TextInput::make('tw3')
+                                                ->label('Triwulan 3')
+                                                ->numeric()
+                                                // ->required()
+                                                ->default($existing?->real_p_t3)
+                                                ->columnSpan(2),
+                                            TextInput::make('tw4')
+                                                ->label('Triwulan 4')
+                                                ->numeric()
+                                                // ->required()
+                                                ->default($existing?->real_p_t4)
+                                                ->columnSpan(2),
 
-                                //             if ($index !== null) {
-                                //                 $nama = $get("data.{$index}.nama_subkegiatan");
-                                //                 $volume = $get("data.{$index}.satuan");
-                                //                 Notification::make('success')
-                                //                     ->title('Item Disimpan')
-                                //                 ->body("Kegiatan '{$nama}' dengan volume {$volume} berhasil disimpan.")
-                                //                     ->success()
-                                //                     ->send();
-                                //             }
-                                //         })
-                                //         ->icon('heroicon-m-check-circle')->color('success')
-                                //     ])
-                                // ->collapsed()
-                                ->itemLabel('index')->addActionAlignment(Alignment::End)
-                                // ->itemLabel(fn(array $state): ?string => $state['kd_subkegiatan'] )
-                                // ->itemLabel(fn(array $state): ?string => $state['kd_subkegiatan'] . ' - Pagu : Rp.' . number_format($state['pagu_subkegiatan'], 0, ',', '.') ?? null)
-                             
-                ->statePath('indikatorprogram')
-                ->columnSpanFull(),
-                      
+                                        ];
+                                    })
+                                    ->action(function (array $arguments, Get $get, $livewire, $record) {
+                                        $index = $arguments['item'] ?? null;
+                                        $id = $get("indikatorprogram.{$index}.id");
+                                        $fill = $livewire->mountedActions[0]['data'] ?? [];
+                                            $ip = RealisasiKinerja::updateOrCreate(
+                                            [
+                                                'tahun_realisasi' => $record->tahun_aggaran,
+                                                'kode_type'       => $record->kd_program,
+                                                'indikator_sub_kegiatan_id'   => $id,
+                                            ],
+                                            [
+                                                'kodeindikator' => $id,
+                                                'skpds_id'                   => $record->kd_satker,
+                                                'jenis'                   => 'output',
+                                                'type_name'                   => 'Program',
+                                                'target'                  => $fill['target'] ?? null,
+                                                'real_p_t1'                  => $fill['tw1'] ?? null,
+                                                'real_p_t2'                  => $fill['tw2'] ?? null,
+                                                'real_p_t3'                  => $fill['tw3'] ?? null,
+                                                'real_p_t4'                  => $fill['tw4'] ?? null,
+                                                'tahun_realisasi'            => $record->tahun_aggaran ?? now()->format('Y'),
+                                                'is_active'                  => true,
+                                            ]
+                                        );
+                                        Notification::make()
+                                            ->title('Indikator Program berhasil ditambah')
+                                            ->body('Indikator Program berhasil ditambah')
+                                            ->success()
+                                            ->send();
+                                    }),
+
+
+                            ])
+                            // ->extraItemActions([
+                            //     Action::make('save')
+                            //         ->label(false)
+                            //       ->action(function (array $arguments, Get $get) {
+                            //             $index = $arguments['item'] ?? null;
+
+                            //             if ($index !== null) {
+                            //                 $nama = $get("data.{$index}.nama_subkegiatan");
+                            //                 $volume = $get("data.{$index}.satuan");
+                            //                 Notification::make('success')
+                            //                     ->title('Item Disimpan')
+                            //                 ->body("Kegiatan '{$nama}' dengan volume {$volume} berhasil disimpan.")
+                            //                     ->success()
+                            //                     ->send();
+                            //             }
+                            //         })
+                            //         ->icon('heroicon-m-check-circle')->color('success')
+                            //     ])
+                            // ->collapsed()
+                            ->itemLabel('index')->addActionAlignment(Alignment::End)
+                            // ->itemLabel(fn(array $state): ?string => $state['kd_subkegiatan'] )
+                            // ->itemLabel(fn(array $state): ?string => $state['kd_subkegiatan'] . ' - Pagu : Rp.' . number_format($state['pagu_subkegiatan'], 0, ',', '.') ?? null)
+
+                            ->statePath('indikatorprogram')
+                            ->columnSpanFull(),
+
 
                     ]),
                 //  Section::make('Realisasi')->compact()->collapsible()->id('realisasi')->inlineLabel()
