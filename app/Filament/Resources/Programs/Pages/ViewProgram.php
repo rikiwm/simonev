@@ -101,7 +101,7 @@ public function mount(int|string $record): void
     //      $new =  IndikatorProgram::where('nama_program', $this->record->nama_program)->first();
     //     $data = $new;
     // }
-    // dd($data);
+    
     $datas = collect($data)->map(function ($item,$key) use ($data) {
         return [
             'id'     =>  $item->id ?? null,
@@ -117,6 +117,11 @@ public function mount(int|string $record): void
             'keterangan' => null,
         ];
     })->toArray();
+
+   $this->record->fill([
+    'pagu_program_perubahan' => '200000',
+]);
+
     $this->indikatorprogram = $datas;
     //  "kd_bidang" => "1.05"
     //   "kd_program" => "2529222"

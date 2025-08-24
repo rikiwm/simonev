@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class SubKegiatan extends Model
@@ -15,9 +16,9 @@ class SubKegiatan extends Model
           return $this->belongsTo(Kegiatan::class, 'kd_kegiatan', 'kd_kegiatan');
      }
 
-     public function indikatorsubkegiatan(): BelongsTo
+     public function indikatorsubkegiatan(): HasMany
      {
-          return $this->belongsTo(IndikatorSubKegiatan::class, 'kd_subkegiatan_str', 'kd_subkegiatan');
+          return $this->hasMany(IndikatorSubKegiatan::class,  'kd_subkegiatan','kd_subkegiatan_str');
      }
 
         public function indikatorsubkegiatanNull(): BelongsTo

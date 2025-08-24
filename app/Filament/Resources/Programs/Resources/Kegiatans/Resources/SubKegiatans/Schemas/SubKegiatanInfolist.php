@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Programs\Resources\Kegiatans\Resources\SubKegiatans\Schemas;
 
+use App\Models\IndikatorSubKegiatan;
 use App\Models\RealisasiKinerja;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
@@ -32,7 +33,6 @@ class SubKegiatanInfolist
 {
     public static function configure(Schema $schema): Schema
     {
-        // dd($schema);
         return $schema
             ->components([
                 Tabs::make('Tabs')
@@ -46,46 +46,45 @@ class SubKegiatanInfolist
                                         TextEntry::make('kegiatan.program.kd_program_str')->hiddenLabel()->inlineLabel(false)->weight(FontWeight::ExtraLight)->belowContent(fn($record) => $record->kegiatan->program->nama_program),
                                         TextEntry::make('kegiatan.kd_kegiatan_str')->hiddenLabel()->inlineLabel(false)->weight(FontWeight::ExtraLight)->belowContent(fn($record) => $record->kegiatan->nama_kegiatan),
                                         TextEntry::make('kd_subkegiatan_str')->hiddenLabel()->inlineLabel(false)->weight(FontWeight::ExtraLight)->belowContent(fn($record) => $record->nama_subkegiatan),
-                                        TextEntry::make('pagu_subkegiatan')->label('Pagu Anggaran')->numeric()->inlineLabel()
-                                            ->money('IDR', true)->prefix('Rp ')
-                                            ->suffix(',-')->color('success')
-                                            ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))->weight(FontWeight::Bold),
-                                        // ComponentsTextInput::make('progres')->columns(6)->inlineLabel()->label('Proges'),
+                                        TextEntry::make('pagu_subkegiatan')->label('Pagu Anggaran')->numeric()->inlineLabel()->money('IDR', true)->prefix('Rp ')->suffix(',-')->color('success')->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))->weight(FontWeight::Bold),
                                         TextEntry::make('tahun_anggaran')->badge(),
-
                                     ])->columns(2)
-
-
                             ]),
                         Tab::make('Indikator')->icon(Heroicon::OutlinedClipboardDocument)
                             ->schema([
-                                // ...
                                 Section::make('')->compact()
                                     ->inlineLabel()
                                     ->schema([
                                         TextEntry::make('indikatorsubkegiatan.indikator')->hiddenLabel()
                                             ->inlineLabel(false)->size(TextSize::Small)->weight(FontWeight::Bold)->aboveContent([
                                                 Icon::make(Heroicon::InformationCircle),
-                                                Text::make(fn($record) => $record->indikatorsubkegiatan->pelaksana ?? null)->weight(FontWeight::SemiBold),
+                                                Text::make(fn($record) => $record->indikatorsubkegiatan->first()->pelaksana ?? null)->weight(FontWeight::SemiBold),
                                             ]),
-                                        // TextEntry::make('indikatorsubkegiatan.pelaksana')->label('Pelaksana Kegiatan')->inlineLabel(false)->size(TextSize::Medium)->hiddenLabel()->extraAttributes(['class' => 'bg-gray-200']),
+                                        TextEntry::make('indikatorsubkegiatan.pelaksana')->label('Pelaksana Kegiatan')->inlineLabel(false)->size(TextSize::Medium)->hiddenLabel()->extraAttributes(['class' => 'bg-gray-200']),
                                         // TextEntry::make('indikatorsubkegiatan.definisi_operasional')->label('Definisi Operasional Sub Kegiatan')->inlineLabel(false)->size(TextSize::ExtraSmall),
                                         // TextEntry::make('indikatorsubkegiatan.definisi_operasional')->label('Definisi Operasional')->inlineLabel()->size(TextSize::ExtraSmall),
-                                        TextEntry::make('indikatorsubkegiatan.kinerja')
-                                            ->inlineLabel()->weight(FontWeight::SemiBold)->color('gray')->icon(Heroicon::ArrowTrendingUp),
+                                        // TextEntry::make('indikatorsubkegiatan.kinerja')
+                                        //     ->inlineLabel()->weight(FontWeight::SemiBold)->color('gray')->icon(Heroicon::ArrowTrendingUp),
 
-                                        TextEntry::make('indikatorsubkegiatan.definisi_operasional')->label('Definisi Operasional')->inlineLabel()->size(TextSize::ExtraSmall),
+                                        // TextEntry::make('indikatorsubkegiatan.definisi_operasional')->label('Definisi Operasional')->inlineLabel()->size(TextSize::ExtraSmall),
                                         TextEntry::make('pagu_subkegiatan')->label('Pagu Anggaran')->numeric()->inlineLabel()
+                                            ->money('IDR', true)->prefix('Rp ')
+                                            ->suffix(',-')->color('success')
+                                            ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))->weight(FontWeight::Bold),
+                                        TextEntry::make('pagu_subkegiatan_perubahan')->label('Pagu Peruban')->numeric()->inlineLabel()
                                             ->money('IDR', true)->prefix('Rp ')
                                             ->suffix(',-')->color('success')
                                             ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))->weight(FontWeight::Bold),
                                         // ComponentsTextInput::make('progres')->columns(6)->inlineLabel()->label('Proges'),
                                         TextEntry::make('tahun_anggaran')->badge(),
+                                        TextEntry::make('realisasi_anggaran')->badge(),
                                     ]),
                                 Section::make('')
                                     ->schema([
                                         Repeater::make('indikatorsubke')->label('Indikator Kinerja')->hiddenLabel()
                                             ->schema([
+                                                TextInput::make('id')->hidden(),
+                                                TextInput::make('kinerja'),
                                                 Textarea::make('indikator')
                                                     ->label('Indikator Kinerja')->helperText('Berdasarkan Nomenklatur (Meta Data 2026)'),
                                                 Flex::make([
@@ -96,18 +95,63 @@ class SubKegiatanInfolist
                                                 ])
                                             ])
                                             ->extraItemActions([
-                                                Action::make('save')->icon('heroicon-m-document-arrow-up')->color('success')
+                                                Action::make('submit')->icon('heroicon-c-archive-box-arrow-down')
+                                                    ->size(Size::ExtraSmall)
+                                                    ->color('gray')->outlined()
+                                                    ->icon(Heroicon::OutlinedArchiveBox)
+                                                    ->requiresConfirmation()
+                                                    ->action(function (array $arguments, Get $get, $livewire, $record) {
+                                                        // dd($livewire);
+                                                        $index = $arguments['item'] ?? null;
+                                                        $item = $get("indikatorsubke.{$index}");
+                                                        $ip = IndikatorSubKegiatan::updateOrCreate(
+                                                            [
+                                                                'id' => $item['id'], // cukup id saja
+                                                            ],
+                                                            [
+                                                                'kd_bidang' => $record->kegiatan->program->bidang->kode_bidang,
+                                                                'kd_program' => $record->kegiatan->program->kd_program_str,
+                                                                'kd_kegiatan' => $record->kegiatan->kd_kegiatan_str,
+                                                                'kd_subkegiatan' => $record->kd_subkegiatan_str,
+                                                                'kinerja' => $item['kinerja'],
+                                                                'satuan' => $item['satuan'],
+                                                                'indikator' => $item['indikator'],
+                                                                'definisi_operasional' => null,
+                                                                'satker_id' => auth()->user()->skpd->kd_satker,
+                                                                'is_active' => 1,
+                                                            ]
+                                                        );
+
+                                                        \Filament\Notifications\Notification::make()
+                                                            ->title('Outcome berhasil disimpan!')
+                                                            ->body('Outcome berhasil disimpan!')
+                                                            ->success()
+                                                            ->send();
+                                                    }),
+                                                Action::make('save')->icon('heroicon-c-pencil-square')->color('success')
                                                     ->label(false)
                                                     // ->requiresConfirmation()
-                                                    ->form(function ($record) {
-                                                        // Cari data existing realisasi
-                                                        $existing = RealisasiKinerja::where('indikator_sub_kegiatan_id', $record->indikatorsubkegiatan?->id)
-                                                            // ->where('kode_type', $record->kd_subkegiatan)
-                                                            ->where('kodeindikator', $record->indikatorsubkegiatan?->id)
+                                                    ->form(function (array $arguments, Get $get, $livewire, $record) {
+                                                        $index = $arguments['item'] ?? null;
+                                                        $id = $get("indikatorsubke.{$index}.id");
+                                                        $existing = RealisasiKinerja::query()->with('indikatorsubkeg')
+                                                            ->where('indikator_sub_kegiatan_id', $id)
+                                                            ->where('kode_type', $record->kd_subkegiatan)
+                                                            ->where('kodeindikator', $id)
                                                             ->where('tahun_realisasi', $record->tahun_anggaran)
                                                             ->first();
                                                         // dd($existing);
                                                         return [
+                                                            Section::make()->compact()
+                                                                ->schema([
+                                                                    TextEntry::make('pagu_subkegiatan')->badge(),
+                                                                    // TextEntry::make('pagu_subkegiatan'),
+                                                                    Text::make('Pelaksana: ' . $existing?->indikatorsubkeg->pelaksana ?? null)->weight(FontWeight::SemiBold)->color('neutral'),
+                                                                    Text::make('Indikator: ' . $existing?->indikatorsubkeg->indikator ?? null)->weight(FontWeight::SemiBold)->color('neutral'),
+                                                                    Text::make('Kinerja: ' . $existing?->indikatorsubkeg->kinerja ?? null)->weight(FontWeight::SemiBold)->color('neutral'),
+                                                                    Text::make('Satuan: ' . $existing?->indikatorsubkeg->satuan ?? null)->weight(FontWeight::SemiBold)->color('info')->badge(),
+                                                                ]),
+
                                                             TextInput::make('target')
                                                                 ->required()->default($existing?->target),
                                                             TextInput::make('tw1')
@@ -134,23 +178,27 @@ class SubKegiatanInfolist
                                                                 // ->required()
                                                                 ->default($existing?->real_p_t4)
                                                                 ->columnSpan(2),
-
-
                                                         ];
                                                     })
-                                                    ->action(function ($livewire, $record) {
+                                                    ->action(function (array $arguments, Get $get, $livewire, $record) {
+                                                        $index = $arguments['item'] ?? null;
+                                                        $id = $get("indikatorsubke.{$index}.id");
                                                         $fill = $livewire->mountedActions[0]['data'] ?? [];
+                                                        // dd($id);
                                                         $ip = RealisasiKinerja::updateOrCreate(
                                                             [
-                                                                'tahun_realisasi' => $record->tahun_aggaran,
+                                                                'indikator_sub_kegiatan_id'   => $id,
+                                                                'skpds_id'                   => $record->kd_satker,
+                                                                'tahun_realisasi' => $record->tahun_anggaran,
                                                                 'kode_type'       => $record->kd_subkegiatan,
-                                                                'indikator_sub_kegiatan_id'   => $record->indikatorsubkegiatan->id,
+
                                                             ],
                                                             [
-                                                                'kodeindikator' => $record->indikatorsubkegiatan->id,
+                                                                'kodeindikator' => $id,
                                                                 'skpds_id'                   => $record->kd_satker,
                                                                 'jenis'                   => 'output',
                                                                 'type_name'                   => 'Sub Kegiatan',
+                                                                'pagu'                  => $record->pagu_subkegiatan ?? null,
                                                                 'target'                  => $fill['target'] ?? null,
                                                                 'real_p_t1'                  => $fill['tw1'] ?? null,
                                                                 'real_p_t2'                  => $fill['tw2'] ?? null,
@@ -170,7 +218,7 @@ class SubKegiatanInfolist
 
                                             ])
                                             ->deleteAction(
-                                                fn(Action $action) => $action->requiresConfirmation()->icon('heroicon-m-document-arrow-down'),
+                                                fn(Action $action) => $action->requiresConfirmation()->icon('heroicon-s-x-circle'),
                                             )
                                             ->addable()->addActionAlignment(Alignment::End)
                                             ->statePath('data')->addActionLabel('+ Indikator')

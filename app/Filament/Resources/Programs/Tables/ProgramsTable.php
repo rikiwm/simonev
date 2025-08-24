@@ -30,24 +30,23 @@ class ProgramsTable
 //     }
     public static function configure(Table $table): Table
     {
-        try {
-             $record = Str::chopStart(url(\request('record')),'http://127.0.0.1:8000/');
-                $records = Str::of($record)->headline()->upper();
-        } catch (\Throwable $th) {
-               $records = [];
-        }
+          try {
+               $record = Str::after(url(request('record')), 'http://127.0.0.1:8000/');
+                $records = trim($record); // keep it raw or sanitize as needed
+            } catch (\Throwable $th) {
+                $records = '';
+            }
         return $table->query(Program::query()->with(['satker','bidang'])
-        //    ->with(['satker', 'bidang'])
-        // ->whereHas('satker', function ($query) use ($record) {
-        //     $query->where('kd_satker', $record);
-        // })
-        ->when(!auth()->user()->hasRole('super_admin'), function ($query) {$namaSatker = auth()->user()->satkers_id;$query->where('kd_satker',$namaSatker );})
-        // ->when(auth()->user()->hasRole('super_admin'), function ($query) use($records) {$query->where('kd_satker',$records );})
+        ->when(!auth()->user()->hasRole('super_admin'), function ($query) {
+                $namaSatker = auth()->user()->satkers_id;
+                $query->where('kd_satker', $namaSatker);
+            })
+            ->when(auth()->user()->hasRole('super_admin') && !empty($records), function ($query) use ($records) {
+                $query->where('kd_satker', $records);
+            })
         ->orderBy('kd_bidang_str', 'asc')
         ->orderBy('kd_program_str', 'asc')
         )
-        // ->heading('Program')->defaultPaginationPageOption(25)
-        // ->description('Manage your Program here.')->extremePaginationLinks()
         ->groups([
             Group::make('bidang.name_bidang')->getTitleFromRecordUsing(fn ($record): string => $record->bidang?->kode_bidang.' - '.ucfirst($record->bidang->name_bidang))->collapsible()->titlePrefixedWithLabel(false)
         ])->defaultGroup('bidang.name_bidang')

@@ -45,7 +45,7 @@ class ProgramInfolist
                             ->money('IDR', true)->prefix('Rp ')
                             ->suffix(',-')->color('success')
                             ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))->weight(FontWeight::Bold),
-                        TextEntry::make('pagu_program')->label('Perubahan')->columns(2)
+                        TextEntry::make('pagu_program_perubahan')->label('Perubahan')->columns(2)
                             ->numeric()->inlineLabel()->money('IDR', true)->prefix('Rp ')
                             ->suffix(',-')->color('warning')
                             ->formatStateUsing(fn($state) => number_format($state, 0, ',', '.'))->weight(FontWeight::Bold),
@@ -83,7 +83,7 @@ class ProgramInfolist
                                             'satker' =>  auth()->user()->skpd->name_satker,
                                             'tags' =>  null,
                                             '
-                                             sumber_data' => 'Mnaual',
+                                             sumber_data' => 'Manual',
                                             'is_active' => 1,
                                             'is_canges' => 0
 
@@ -124,6 +124,7 @@ class ProgramInfolist
                             ->deleteAction(
                                 fn(Action $action) => $action->requiresConfirmation()->icon('heroicon-m-document-arrow-down')
                                     ->action(function (array $arguments, Get $get, $livewire) {
+                                        
                                         $index = $arguments['item'] ?? null;
                                         $id = $get("indikatorprogram.{$index}.id");
 
@@ -166,7 +167,6 @@ class ProgramInfolist
                                         //   ->action(function (array $arguments, Get $get, $livewire) {
                                         $index = $arguments['item'] ?? null;
                                         $id = $get("indikatorprogram.{$index}.id");
-                                        // dd($id);
                                         // Cari data existing realisasi
                                         $existing = RealisasiKinerja::query()
                                         ->where('indikator_sub_kegiatan_id', $id)
@@ -211,7 +211,7 @@ class ProgramInfolist
                                         $fill = $livewire->mountedActions[0]['data'] ?? [];
                                             $ip = RealisasiKinerja::updateOrCreate(
                                             [
-                                                'tahun_realisasi' => $record->tahun_aggaran,
+                                                'tahun_realisasi' => $record->tahun_anggaran,
                                                 'kode_type'       => $record->kd_program,
                                                 'indikator_sub_kegiatan_id'   => $id,
                                             ],
@@ -221,6 +221,7 @@ class ProgramInfolist
                                                 'jenis'                   => 'output',
                                                 'type_name'                   => 'Program',
                                                 'target'                  => $fill['target'] ?? null,
+                                                'pagu'                  => $record->pagu_program ?? null,
                                                 'real_p_t1'                  => $fill['tw1'] ?? null,
                                                 'real_p_t2'                  => $fill['tw2'] ?? null,
                                                 'real_p_t3'                  => $fill['tw3'] ?? null,

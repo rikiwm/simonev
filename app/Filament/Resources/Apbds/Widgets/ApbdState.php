@@ -82,19 +82,19 @@ protected int | string | array $columnSpan = '2';
                 ->description('7% increase')
                 ->descriptionIcon('heroicon-m-arrow-trending-down')
                 ->color('danger'),
-            Stat::make('Pendapatan Daerah', '9999x')
+            Stat::make('Pendapatan Daerah', '0')
                 ->description('3% increase')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
-                 Stat::make('Average time on page', '3:12')
+                 Stat::make('Average time on page', '0')
                 ->description('3% increase')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
-                 Stat::make('Average time on page', '3:12')
+                 Stat::make('Average time on page', '0')
                 ->description('3% increase')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),
-                 Stat::make('Average time on page', '3:12')
+                 Stat::make('Average time on page', '0')
                 ->description('3% increase')
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->color('success'),

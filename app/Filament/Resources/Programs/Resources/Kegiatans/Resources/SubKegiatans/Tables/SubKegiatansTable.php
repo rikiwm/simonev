@@ -39,7 +39,7 @@ class SubKegiatansTable
                  ->prefix(fn($record) =>  $record->kd_subkegiatan_str.' - ')->wrap()->size(TextSize::Small)->weight(FontWeight::Medium)
                     ->searchable()->color(fn ($record) => Str::startsWith($record->kd_subkegiatan_str, 'P') ? 'primary' : 'secondary')
                     ->sortable()  ->toggleable(isToggledHiddenByDefault: false),
-                TextColumn::make('indikatorsubkegiatan.kinerja')->wrap()->description(fn($record) => $record->indikatorsubkegiatan?->satuan)->toggleable(isToggledHiddenByDefault: false)->label('Kinerja')->size(TextSize::Small),
+                TextColumn::make('indikatorsubkegiatan.kinerja')->wrap()->description(fn($record) => $record->indikatorsubkegiatan?->first()->satuan)->toggleable(isToggledHiddenByDefault: false)->label('Kinerja')->size(TextSize::Small),
 
                 TextColumn::make('kd_subkegiatan_str')
                     ->searchable()->toggleable(isToggledHiddenByDefault: true),

@@ -23,7 +23,7 @@ class ApbdsTable
           ->query(Skpd::query()
           ->when(!auth()->user()->hasRole('super_admin'), function ($query) {$namaSatker = auth()->user()->skpd->name_satker;$query->where('name_satker', 'LIKE', '%' . $namaSatker . '%');}
             )
-            ->where('apbds.event_date', '=', Carbon::now()->subDays(11)->format('Y-m-d'))
+        ->where('apbds.event_date', '=', Carbon::now()->subDays(21)->format('Y-m-d') ?? Carbon::now()->subDays(21)->format('Y-m-d'))
                     ->join(
                         'apbds',
                         'apbds.SKPD',
@@ -40,7 +40,7 @@ class ApbdsTable
                         'apbds.event_date',
                     )->groupBy('apbds.SKPD', 'apbds.tahun_anggaran', 'apbds.event_date', 'skpds.name_satker', 'skpds.id')
 
-                )->paginated(40)->deferLoading()
+                )->paginated(10)->deferLoading()
             ->columns([
                 TextColumn::make('name_satker')->weight(FontWeight::Medium)->label('Satker')->description(fn ($record) => $record->kd_satker_str)
                     ->sortable()->size(TextSize::Medium)->wrap()
